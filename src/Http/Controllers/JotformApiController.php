@@ -5,6 +5,7 @@ use Voyager;
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use JotformApiHook\JotformApiHookServiceProvider;
 
 class JotformApiController {
 
@@ -139,12 +140,17 @@ class JotformApiController {
 				foreach($s->answers as $a) 
 				{
 
-					if ( property_exists($a, 'answer') ): 
+					if ( property_exists($a, 'answer') )
+					{
 		                if ( is_array($a->answer) || is_object($a->answer) ) 
 		                    array_push($answers, json_encode($a->answer));
 		                else
 		                    array_push($answers, $a->answer );
-		            endif;
+		            }
+		            else
+		            {
+		            	array_push($answers, '');
+		            }
 				}
 
 
@@ -164,6 +170,11 @@ class JotformApiController {
 		        'A1'         // Top left coordinate of the worksheet range where
 		                     //    we want to set these values (default is A1)
 		    );
+
+		foreach (JotformApiHookServiceProvider::$exportedSpreadsheetFilters as $filter)
+		{
+			$spreadsheet = $filter($spreadsheet, $sheetData, $form->title); 
+		}
 
 		$writer = new Xlsx($spreadsheet);
 

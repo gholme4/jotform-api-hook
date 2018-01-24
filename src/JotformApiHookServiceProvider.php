@@ -13,6 +13,9 @@ use Voyager;
 
 class JotformApiHookServiceProvider extends ServiceProvider
 {
+
+    static public $exportedSpreadsheetFilters = [];
+
     /**
      * Bootstrap any application services.
      *
@@ -136,6 +139,14 @@ class JotformApiHookServiceProvider extends ServiceProvider
                 $role->permissions()->attach($permission);
             }
         }
+    }
+
+     /**
+     *
+     * @param callable $callback
+     */
+    static function filterExportedSpreadsheet($callback) {
+        array_push(self::$exportedSpreadsheetFilters, $callback); 
     }
 
 }

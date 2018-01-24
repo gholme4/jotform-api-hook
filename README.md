@@ -14,3 +14,29 @@ php artisan hook:install jotform-api-hook
 
 ## Configuration
 Go to the admin tab on the settings page and enter your Jotform API key in the `Jotform API Key` field.
+
+
+## API
+
+#### Filtering Excel exports
+When exporting form submissions, you can make modifications to the spreadsheet object before it is exported via a callback. The callback accepts the spreadsheet object, an array of data that populates the spreadsheet, and the corresponding form's title. Sample code is below:
+
+```
+use JotformApiHook\JotformApiHookServiceProvider;
+
+...
+
+if (class_exists('\JotformApiHook\JotformApiHookServiceProvider'))
+{
+
+    JotformApiHookServiceProvider::filterExportedSpreadsheet(function($spreadsheet, $sheetData, $formTitle) {
+    	
+    	// Logic to change spreadsheet data ...
+
+        return $spreadsheet;
+    });
+}
+
+...
+
+```
