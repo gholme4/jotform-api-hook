@@ -1,0 +1,20 @@
+{
+  "name": "jotform-api-hook",
+  "description": "This is a hook for voyager that integrates with a Jotform account to view form data.",
+  "require": {
+    "larapack/hooks": "~1.0",
+    "phpoffice/phpspreadsheet": "^1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "JotformApiHook\\": "src/"
+    }
+  },
+  "extra": {
+    "hook": {
+      "providers": [
+        "JotformApiHook\\JotformApiHookServiceProvider"
+      ]
+    }
+  }
+}
