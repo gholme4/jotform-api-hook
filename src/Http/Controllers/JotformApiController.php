@@ -13,7 +13,7 @@ class JotformApiController {
 	protected $apiKey;
 
 	function __construct() {
-		$this->apiKey = env('JOTFORM_API_KEY', getenv('JOTFORM_API_KEY'));
+		$this->apiKey = setting('admin.jotform_api_key');
 		$this->client = new \GuzzleHttp\Client(['base_uri' => 'https://api.jotform.com/']);
 	}
 
