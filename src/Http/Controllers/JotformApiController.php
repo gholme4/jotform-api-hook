@@ -37,8 +37,6 @@ class JotformApiController {
 		$body = json_decode($response->getBody());
 		$forms = $body->content;
 
-		\Log::info(json_encode($forms));
-
 	    return view('jotform_api::index', [
 	    	'forms' => $forms
 	    ]);
@@ -140,7 +138,6 @@ class JotformApiController {
 				$answers = array();
 				foreach($s->answers as $a) 
 				{
-					\Log::info(json_encode($a));	
 
 					if ( property_exists($a, 'answer') ): 
 		                if ( is_array($a->answer) || is_object($a->answer) ) 
