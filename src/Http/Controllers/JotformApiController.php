@@ -106,7 +106,7 @@ class JotformApiController {
 		$body = json_decode($response->getBody());
 		$form = $body->content;
 
-		if (count($form->count) == 0 )
+		if ($form->count == 0 )
 		{
 			return view('jotform_api::error', [ 'content' => 'No submissions found']);
 		}
