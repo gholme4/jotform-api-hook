@@ -26,17 +26,22 @@ class JotformApiHookServiceProvider extends ServiceProvider
         // Load blade templates
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'jotform_api');
 
-        // Add jotform API key Voyager setting
-        $setting = Setting::firstOrNew(['key' => 'admin.jotform_api_key']);
-        if (!$setting->exists) {
-            $setting->fill([
-                'display_name' => 'Jotform API Key',
-                'value'        => '',
-                'details'      => '',
-                'type'         => 'text',
-                'order'        => 1,
-                'group'        => 'Admin',
-            ])->save();
+        try {
+            // Add jotform API key Voyager setting
+            $setting = Setting::firstOrNew(['key' => 'admin.jotform_api_key']);
+            if (!$setting->exists) {
+                $setting->fill([
+                    'display_name' => 'Jotform API Key',
+                    'value'        => '',
+                    'details'      => '',
+                    'type'         => 'text',
+                    'order'        => 1,
+                    'group'        => 'Admin',
+                ])->save();
+            }
+        }
+        catch(\Exception $e) {
+
         }
 
     }
